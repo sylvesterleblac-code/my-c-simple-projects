@@ -1,0 +1,45 @@
+http - browse web pages
+https - browse web pages with encryption
+smtp - send and receive emails
+imap  and pop3 - load emails from an inbox 
+ftp - file transfer
+ssh - remoter shell over an encrypted connection
+ssl - lowlevel secure connection
+
+customary ports
+21 - ftp
+22 - ssh 
+25 - smtp 
+80 - http
+443 - https 
+3306 - mysql
+5484 - postgresql
+6667 - irc
+any computer can be a server
+any computer can also be a client
+clients initiate connection
+aside from servers and clients , in a peer to peer network, clients establish connections directly to other clients. protocols in a p2p are bittorrent and webrtc.
+http verbs
+http requests begin with a verb like: 
+GET - fetch a document.
+POST - submit a form
+HEAD - fetch metadata about a document 
+PUT - upload a file
+http headers have a key followed by a colon follwed by a value eg key: value
+example is: 
+nc google.com 80
+GET / HTTP/1.0
+Host: google.com
+NB: make sure to hit 'return' twice after the 'Host: google.com'
+the 'host: google.com' is the header
+you can also send http requests with the curl command:
+curl -s http://subastack.net
+curl -I -s http://substack.net - this will only print out the headers
+this is helpful when you want to debug a server that you are working on
+use '-X' to set the http verb (eg POST) and '-d' to set form parameters
+SMTP 
+smtp is a protocol used to deliver email messages eg we can send with abc@gmail.com to sda@gmail.com
+example sending from nc localhost 25
+irc is an ancient text-based chat protocol that is still very popular among programmers
+Binary protocols
+
